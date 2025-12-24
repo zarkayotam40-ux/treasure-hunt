@@ -1,2 +1,115 @@
 # treasure-hunt
 hunting a secret
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<title>חידת האוצר</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+background: #f4f4f4;
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+}
+.container {
+background: white;
+padding: 30px;
+max-width: 500px;
+width: 100%;
+text-align: center;
+border-radius: 12px;
+box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+h1 {
+font-size: 22px;
+margin-bottom: 20px;
+}
+input {
+width: 80%;
+padding: 10px;
+font-size: 16px;
+margin-bottom: 10px;
+}
+button {
+padding: 10px 20px;
+font-size: 16px;
+cursor: pointer;
+border: none;
+border-radius: 6px;
+background: #007bff;
+color: white;
+}
+.message {
+margin-top: 15px;
+font-weight: bold;
+}
+.error {
+color: red;
+}
+.success {
+color: green;
+}
+img {
+margin-top: 20px;
+max-width: 100%;
+border-radius: 8px;
+display: none;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>
+יש לי בית קטן שבו אני חי לבד,<br>
+אין לו דלת או חלונות.<br>
+אם אני רוצה לצאת ממנו אני צריך לפרוץ את הקיר.<br>
+מי אני?
+</h1>
+
+
+<input type="text" id="answer" placeholder="הקלד את התשובה כאן" />
+<br />
+<button onclick="checkAnswer()">אישור</button>
+
+
+<div id="message" class="message"></div>
+
+
+<!-- החלף את src לתמונה של מפת האוצר שלך -->
+<img id="treasureMap" src="treasure-map.png" alt="מפת אוצר" />
+</div>
+
+
+<script>
+const correctAnswers = [
+"אפרוח",
+"אפרוח בביצה",
+"גוזל",
+"גוזל בביצה",
+"גוזל של ציפור"
+];
+
+
+function normalize(text) {
+return text.trim().toLowerCase();
+}
+
+
+function checkAnswer() {
+const userAnswer = normalize(document.getElementById("answer").value);
+const messageDiv = document.getElementById("message");
+const mapImg = document.getElementById("treasureMap");
+
+
+const isCorrect = correctAnswers.some(ans => normalize(ans) === userAnswer);
+
+
+if (isCorrect) {
+messageDiv.textContent = "כל הכבוד! מצאת את מפת האוצר";
+messageDiv.className = "message success";
+mapImg.style.display = "block";
+} else {
+messageDiv.textContent = "טעות, נסו שוב";
